@@ -35,11 +35,13 @@ window.UploadZone = function UploadZone({ onFileSelected, onTryDemo, error }) {
         >
           <Upload size={48} className="text-navy" strokeWidth={1.7} />
         </div>
-        <p className="text-lg font-semibold text-navy">Drop your legal document here</p>
-        <p className="text-sm mt-1" style={{ color: "#64748B" }}>
-          PDF, DOCX, or TXT · Max 10MB
-        </p>
+<p className="text-lg font-semibold text-navy">
+  Upload your Intellectual Property Law document
+</p>
 
+<p className="text-sm mt-1" style={{ color: "#64748B" }}>
+  PDF, DOCX, or TXT · Max 10MB
+</p>
 <div 
   className="mt-4 text-left text-xs px-4 py-3 rounded-lg"
   style={{ 
@@ -53,7 +55,7 @@ window.UploadZone = function UploadZone({ onFileSelected, onTryDemo, error }) {
   </p>
 
   <ul className="space-y-1">
-    <li>✓ English patent acts only</li>
+    <li>✓ English intellectual property laws only</li>
     <li>✓ Section-based legal structure required</li>
     <li>✓ Full legal text (not summaries or commentary)</li>
   </ul>
@@ -95,7 +97,7 @@ window.UploadZone = function UploadZone({ onFileSelected, onTryDemo, error }) {
         className="btn-navy w-full flex items-center justify-center gap-2 py-3.5 text-[15px]"
       >
         <FileText size={18} />
-        Try with Demo Agreement →
+        Try with Demo Intellectual Property Law →
       </button>
     </div>
   );

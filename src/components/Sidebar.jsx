@@ -31,41 +31,8 @@ window.Sidebar = function Sidebar({ docName, score, riskInfo, summary, onReanaly
         </button>
       </div>
 
-      {/* Card 2 — Risk gauge */}
-      <window.RiskGauge score={score} riskInfo={riskInfo} />
 
-      {/* Card 3 — Donut */}
-      <window.RiskDonut counts={riskInfo.counts} />
 
-      {/* Card 4 — Quick stats */}
-      <div className="ll-card p-5" id="quick-stats-card">
-        <h3 className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "#64748B" }}>
-          Quick Stats
-        </h3>
-        <dl className="grid gap-3.5 m-0">
-          <div className="flex items-start gap-2.5">
-            <Users size={16} className="mt-0.5 shrink-0" style={{ color: "#2D5282" }} />
-            <div>
-              <dt className="text-[11px] font-medium uppercase tracking-wide" style={{ color: "#94A3B8" }}>Parties</dt>
-              <dd className="text-[13px] font-semibold text-navy m-0">{summary.parties.join(" & ")}</dd>
-            </div>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <IndianRupee size={16} className="mt-0.5 shrink-0" style={{ color: "#2D5282" }} />
-            <div>
-              <dt className="text-[11px] font-medium uppercase tracking-wide" style={{ color: "#94A3B8" }}>Value</dt>
-              <dd className="text-[13px] font-semibold text-navy m-0">{summary.amount}</dd>
-            </div>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <MapPin size={16} className="mt-0.5 shrink-0" style={{ color: "#2D5282" }} />
-            <div>
-              <dt className="text-[11px] font-medium uppercase tracking-wide" style={{ color: "#94A3B8" }}>Jurisdiction</dt>
-              <dd className="text-[13px] font-semibold text-navy m-0">{summary.jurisdiction}</dd>
-            </div>
-          </div>
-        </dl>
-      </div>
     </aside>
   );
 };

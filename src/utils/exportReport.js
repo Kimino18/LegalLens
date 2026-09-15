@@ -44,7 +44,7 @@ window.exportPDFReport = function exportPDFReport({ docName, score, riskInfo, cl
   doc.text("AI LEGAL DOCUMENT RISK REPORT", margin, 26);
   doc.setTextColor(200, 210, 225);
   doc.setFontSize(9);
-  doc.text("For Indian SMEs · Hindi & English", margin, 32);
+  doc.text("Intellectual Property Law Analysis Report", margin, 32);
 
   y = 50;
 

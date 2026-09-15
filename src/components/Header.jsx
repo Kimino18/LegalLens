@@ -31,10 +31,6 @@ window.Header = function Header({ screen, onReset }) {
         </span>
       </button>
 
-      <p className="hidden md:block text-sm" style={{ color: "#94A8C4" }}>
-        For Indian SMEs · Hindi &amp; English
-      </p>
-
       <div>
         {screen === "analysis" ? (
           <button
@@ -47,7 +43,9 @@ window.Header = function Header({ screen, onReset }) {
             <span className="sm:hidden">New</span>
           </button>
         ) : (
-          <span className="text-xs hidden sm:block" style={{ color: "#94A8C4" }}>Free · No Signup</span>
+          <span className="text-xs hidden sm:block" style={{ color: "#94A8C4" }}>
+  IP Document Analysis
+</span>
         )}
       </div>
     </header>
