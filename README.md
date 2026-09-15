@@ -1,45 +1,142 @@
 # LegalLens
 
-LegalLens is a lightweight legal document analysis prototype designed to help users quickly locate relevant provisions in English patent acts.
+AI-assisted Intellectual Property (IP) Law Document Analysis Tool
+
+## Overview
+
+LegalLens is an AI-assisted legal document analysis tool designed for Intellectual Property (IP) law documents.
+
+The project helps users quickly locate relevant legal provisions from long and complex legal texts by combining document structure analysis and query-based relevance ranking.
+
+Instead of providing automatic legal conclusions, LegalLens assists users by identifying potentially relevant sections and allowing users to review the original legal text for further analysis.
+
+---
 
 ## Features
 
-- Upload legal documents in PDF, DOCX, or TXT format
-- Detect section-based legal structures
-- Search predefined legal topics:
-  - Protection
-  - Duration
-  - Enforcement
-- Rank relevant sections based on keyword relevance
-- Display extracted legal provisions for user review
+### 📄 Legal Document Upload
 
-## Supported Documents
+Supports uploading legal documents in:
 
-Currently optimized for:
+- PDF
+- DOCX
+- TXT
 
-- English patent Acts
-- Section-based legal documents
+Users can upload intellectual property law documents and analyze the content directly in the browser.
 
-Example:
-- UK Patents Act
-- Indian Patents Act
+---
+
+### 🔎 Query-Based Clause Retrieval
+
+Users can enter legal questions or keywords, such as:
+
+- protection duration
+- enforcement
+- protected subject matter
+- protection mechanism
+
+The system searches the uploaded document and returns relevant legal sections based on keyword relevance.
+
+---
+
+### 📚 Section-Based Legal Text Analysis
+
+Legal documents are analyzed according to their internal structure.
+
+The system identifies relevant sections and ranks results based on the relationship between the user's query and the document content.
+
+---
+
+### ⚖️ Intellectual Property Law Focus
+
+The tool is designed for IP law documents, including:
+
+- Patent Acts
+- Trademark Acts
+- Copyright Acts
+- Other intellectual property-related legislation
+
+---
 
 ## How It Works
 
-1. User uploads a legal document
-2. The system detects sections and headings
-3. User enters a query keyword
-4. Relevant sections are ranked and displayed
+---
+
+## Supported Documents
+
+Recommended input documents:
+
+- English legal Acts
+- Section-based legal documents
+- Structured legal texts with clear chapters and sections
+
+Examples:
+
+- Patent Acts
+- Trademark Acts
+- Copyright Acts
+
+### Recommended Format
+
+For better analysis results:
+
+✅ Original English legal text  
+✅ Official Acts rather than procedural rules or regulations  
+✅ Documents with clear section numbering and structure  
+
+---
+
+## Technology Stack
+
+Frontend:
+
+- HTML
+- CSS
+- JavaScript
+- React (via browser-based components)
+
+Document Processing:
+
+- PDF/DOCX/TXT text extraction
+- Rule-based section detection
+- Keyword relevance ranking
+
+Deployment:
+
+- GitHub Pages
+
+---
+
+## Project Structure
+
+---
 
 ## Limitations
 
-- Best performance on structured English legal Acts
-- Not designed for scanned PDFs or non-section-based documents
-- Results provide retrieval assistance and require user verification
+- The system does not provide legal advice or legal conclusions.
+- Retrieval accuracy depends on document structure and terminology.
+- The current version is optimized for English intellectual property law documents.
+- Documents with unclear formatting, scanned images, or inconsistent structures may reduce extraction accuracy.
+- Users should verify retrieved provisions against the original legal text.
 
-## Tech Stack
+---
 
-- JavaScript
-- React
-- Tailwind CSS
-- Browser-based document processing
+## Future Improvements
+
+Possible improvements include:
+
+- More advanced semantic search methods
+- Better support for scanned PDF documents through OCR
+- Multilingual legal document analysis
+- Improved legal terminology recognition
+- Automated comparison between different jurisdictions
+
+---
+
+## Disclaimer
+
+LegalLens is an experimental research project for assisting legal document analysis.
+
+It is not a substitute for professional legal advice.
+
+Users should always consult the original legislation and qualified legal professionals when making legal decisions.
