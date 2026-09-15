@@ -61,7 +61,19 @@ The tool is designed for IP law documents, including:
 ## How It Works
 
 ---
-
+Upload Legal Document
+↓
+Extract Document Text
+↓
+Identify Legal Sections
+↓
+Enter User Query
+↓
+Calculate Relevance Score
+↓
+Rank Related Legal Provisions
+↓
+Review Original Legal Text
 ## Supported Documents
 
 Recommended input documents:
@@ -93,7 +105,8 @@ Frontend:
 - HTML
 - CSS
 - JavaScript
-- React (via browser-based components)
+- React components
+- JavaScript (ES6+)
 
 Document Processing:
 
@@ -110,7 +123,20 @@ Deployment:
 ## Project Structure
 
 ---
-
+LegalLens
+│
+├── index.html
+├── src
+│ ├── LandingScreen.jsx
+│ ├── UploadZone.jsx
+│ ├── AnalysisScreen.jsx
+│ ├── Sidebar.jsx
+│ ├── ClauseEngine.js
+│ └── RiskGauge.jsx
+│
+├── css
+│
+└── README.md
 ## Limitations
 
 - The system does not provide legal advice or legal conclusions.
