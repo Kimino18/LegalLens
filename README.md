@@ -87,6 +87,8 @@ The tool is designed for IP law documents, including:
 
 7. Review Original Legal Text
 
+```
+
 ## Supported Documents
 
 Recommended input documents:
@@ -178,7 +180,7 @@ LegalLens
 │
 └── .gitignore
 
----
+```
 
 ## Limitations
 
