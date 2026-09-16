@@ -60,6 +60,7 @@ The tool is designed for IP law documents, including:
 
 ## How It Works
 
+```text
 1. Upload Legal Document
 
 ↓
@@ -132,7 +133,7 @@ Deployment:
 
 - GitHub Pages / Vercel
 
----
+
 
 ## Project Structure
 
