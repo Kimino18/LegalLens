@@ -56,26 +56,35 @@ The tool is designed for IP law documents, including:
 - Copyright Acts
 - Other intellectual property-related legislation
 
----
+
 
 ## How It Works
 
-```text
-Upload Legal Document
-          ↓
-Extract Document Text
-          ↓
-Identify Legal Sections
-          ↓
-Enter User Query
-          ↓
-Calculate Relevance Score
-          ↓
-Rank Related Legal Provisions
-          ↓
-Review Original Legal Text
+1. Upload Legal Document
 
----
+↓
+
+2. Extract Document Text
+
+↓
+
+3. Identify Legal Sections
+
+↓
+
+4. Enter User Query
+
+↓
+
+5. Calculate Relevance Score
+
+↓
+
+6. Rank Related Legal Provisions
+
+↓
+
+7. Review Original Legal Text
 
 ## Supported Documents
 
