@@ -126,17 +126,42 @@ Deployment:
 LegalLens
 │
 ├── index.html
-├── src
-│   ├── LandingScreen.jsx
-│   ├── UploadZone.jsx
-│   ├── AnalysisScreen.jsx
-│   ├── Sidebar.jsx
-│   ├── ClauseEngine.js
-│   └── RiskGauge.jsx
+├── README.md
+├── favicon.svg
+├── vercel.json
 │
 ├── css
+│   └── style.css
 │
-└── README.md
+├── src
+│   │
+│   ├── App.jsx
+│   │
+│   ├── components
+│   │   ├── AnalysisScreen.jsx
+│   │   ├── ClauseCard.jsx
+│   │   ├── ClauseList.jsx
+│   │   ├── FullTextPanel.jsx
+│   │   ├── Header.jsx
+│   │   ├── Icons.jsx
+│   │   ├── LandingScreen.jsx
+│   │   ├── LoadingOverlay.jsx
+│   │   ├── RiskDonut.jsx
+│   │   ├── RiskGauge.jsx
+│   │   ├── Sidebar.jsx
+│   │   ├── SummaryPanel.jsx
+│   │   └── UploadZone.jsx
+│   │
+│   ├── data
+│   │   └── sampleDoc.js
+│   │
+│   └── utils
+│       ├── clauseEngine.js
+│       ├── exportReport.js
+│       ├── pdfParser.js
+│       └── summarizer.js
+│
+└── .gitignore
 ## Limitations
 
 - The system does not provide legal advice or legal conclusions.
