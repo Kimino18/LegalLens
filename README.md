@@ -105,18 +105,18 @@ Frontend:
 - HTML
 - CSS
 - JavaScript
-- React components
-- JavaScript (ES6+)
+- React JSX Components
 
 Document Processing:
 
-- PDF/DOCX/TXT text extraction
+- PDF text extraction
+- DOCX/TXT parsing
 - Rule-based section detection
-- Keyword relevance ranking
+- Keyword-based relevance ranking
 
 Deployment:
 
-- GitHub Pages
+- GitHub Pages / Vercel
 
 ---
 
@@ -162,6 +162,9 @@ LegalLens
 │       └── summarizer.js
 │
 └── .gitignore
+
+---
+
 ## Limitations
 
 - The system does not provide legal advice or legal conclusions.
