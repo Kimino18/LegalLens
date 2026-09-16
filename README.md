@@ -58,9 +58,9 @@ The tool is designed for IP law documents, including:
 
 
 
+```markdown
 ## How It Works
 
-text
 1. Upload Legal Document
 
 ↓
