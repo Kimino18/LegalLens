@@ -60,7 +60,7 @@ The tool is designed for IP law documents, including:
 
 ## How It Works
 
-```text
+text
 1. Upload Legal Document
 
 ↓
