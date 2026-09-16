@@ -74,6 +74,9 @@ Calculate Relevance Score
 Rank Related Legal Provisions
           ↓
 Review Original Legal Text
+
+---
+
 ## Supported Documents
 
 Recommended input documents:
@@ -87,6 +90,8 @@ Examples:
 - Patent Acts
 - Trademark Acts
 - Copyright Acts
+
+---
 
 ### Recommended Format
 
