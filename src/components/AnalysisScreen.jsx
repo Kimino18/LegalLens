@@ -6,22 +6,12 @@ window.AnalysisScreen = function AnalysisScreen({
   docName, docText, clauses, summary, score, riskInfo,
   activeTab, setActiveTab, summaryLang, setSummaryLang, onReanalyze
 }) {
-  const { Download } = window.LLIcons;
-  const [exporting, setExporting] = React.useState(false);
+  
+  
   const [searchResults, setSearchResults] = React.useState([]);
 
   const [question, setQuestion] = React.useState("");
 
-  const handleExport = () => {
-    setExporting(true);
-    setTimeout(() => {
-      try {
-        window.exportPDFReport({ docName, score, riskInfo, clauses, summary });
-      } finally {
-        setExporting(false);
-      }
-    }, 50);
-  };
 
   const tabs = [
     { id: "clauses", label: "Clause Analysis", badge: clauses.length },
@@ -69,17 +59,6 @@ window.AnalysisScreen = function AnalysisScreen({
                 </button>
               ))}
             </nav>
-            <div className="px-3 py-2">
-              <button
-                id="export-btn"
-                onClick={handleExport}
-                disabled={exporting}
-                className="btn-navy flex items-center gap-2 text-[13px] px-4 py-2"
-              >
-                <Download size={15} />
-                {exporting ? "Generating…" : "Export PDF Report"}
-              </button>
-            </div>
           </div>
 
           {/* Tab panels */}
