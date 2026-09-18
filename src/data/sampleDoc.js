@@ -35,4 +35,4 @@ Protection may extend to works originating from countries that provide reciproca
 
 `;
 
-window.sampleDocName = "Copyright_Act_Demo.pdf";
+window.sampleDocName = "Copyright_Act_Demo.txt";
