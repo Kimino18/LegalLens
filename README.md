@@ -35,7 +35,7 @@ Users can enter legal questions or keywords, such as:
 - protected subject matter
 - protection mechanism
 
-The system searches the uploaded document and returns relevant legal sections based on keyword relevance.
+The system searches the uploaded document and ranks potentially relevant legal sections based on keyword coverage and relevance scoring.
 
 ---
 
@@ -43,7 +43,7 @@ The system searches the uploaded document and returns relevant legal sections ba
 
 Legal documents are analyzed according to their internal structure.
 
-The system identifies relevant sections and ranks results based on the relationship between the user's query and the document content.
+The system identifies legal sections and ranks results based on query-related keyword distribution within each section.
 
 ---
 
@@ -129,7 +129,7 @@ Document Processing:
 - PDF text extraction
 - DOCX/TXT parsing
 - Rule-based section detection
-- Keyword-based relevance ranking
+- Keyword coverage-based relevance ranking
 
 Deployment:
 
@@ -174,9 +174,9 @@ LegalLens
 │   │
 │   └── utils
 │       ├── clauseEngine.js
-│       ├── exportReport.js
 │       ├── pdfParser.js
 │       └── summarizer.js
+│       
 │
 └── .gitignore
 
@@ -186,6 +186,7 @@ LegalLens
 
 - The system does not provide legal advice or legal conclusions.
 - Retrieval accuracy depends on document structure and terminology.
+- The current retrieval method is based on rule-based keyword analysis rather than advanced semantic understanding.
 - The current version is optimized for English intellectual property law documents.
 - Documents with unclear formatting, scanned images, or inconsistent structures may reduce extraction accuracy.
 - Users should verify retrieved provisions against the original legal text.
