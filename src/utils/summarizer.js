@@ -71,14 +71,10 @@ window.generateSummary = function generateSummary(text, clauses) {
   const partyA = parties[0] || "Party A";
   const partyB = parties[1] || "Party B";
 
-  const englishSummary =
-    `This agreement is between ${partyA} and ${partyB}, dated ${date}. ` +
-    `The contract involves a monthly value of ${amount}, governed by ${jurisdiction}. ` +
-    `Our AI analysis detected ${highClauses.length} high-risk clauses, ${mediumClauses.length} medium-risk clauses, and ${infoClauses.length} standard clauses. ` +
-    (topRisks.length
-      ? `Critical issues requiring legal review: ${topRisks.join(", ")}.`
-      : `No critical issues detected. The document appears relatively standard.`);
-
+const englishSummary =
+`This document is an intellectual property law document. ` +
+`The analysis identifies relevant legal provisions based on user queries and document structure. ` +
+`Retrieved sections are ranked according to keyword relevance, allowing users to review the original legal text for further analysis.`;
   const hindiSummary =
     `यह समझौता ${partyA} और ${partyB} के बीच ${date} को हुआ है। ` +
     `अनुबंध मूल्य: ${amount}, न्याय क्षेत्र: ${jurisdiction}। ` +
