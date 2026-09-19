@@ -52,16 +52,6 @@ window.FullTextPanel = function FullTextPanel({ docText, clauses }) {
 
   return (
     <section id="fulltext-panel" className="ll-card overflow-hidden anim-fade-up" aria-label="Full document text">
-      {/* Legend */}
-      <div className="flex items-center gap-4 px-5 py-3" style={{ borderBottom: "1px solid #E2E8F0" }}>
-        <span className="text-xs font-semibold" style={{ color: "#64748B" }}>Highlights:</span>
-        <span className="text-xs flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-sm inline-block" style={{ background: "#FEF08A" }}></span> High risk
-        </span>
-        <span className="text-xs flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-sm inline-block" style={{ background: "#FED7AA" }}></span> Medium risk
-        </span>
-      </div>
 
       <pre
         className="mono-snippet m-0 px-5 py-4 overflow-y-auto whitespace-pre-wrap"

@@ -3,14 +3,9 @@
 // ═══════════════════════════════════════════
 
 window.SummaryPanel = function SummaryPanel({ summary, summaryLang, setSummaryLang }) {
-  const { Users, IndianRupee, MapPin, Languages } = window.LLIcons;
+  const { Languages } = window.LLIcons;
   const isHindi = summaryLang === "hindi";
 
-  const highlights = [
-    { icon: Users, label: "Parties", value: summary.parties.join(" & ") },
-    { icon: IndianRupee, label: "Contract Value", value: summary.amount },
-    { icon: MapPin, label: "Jurisdiction", value: summary.jurisdiction }
-  ];
 
   return (
     <section id="summary-panel" className="stagger" aria-label="Plain language summary">
@@ -55,18 +50,6 @@ window.SummaryPanel = function SummaryPanel({ summary, summaryLang, setSummaryLa
         </p>
       </div>
 
-      {/* Highlight cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-        {highlights.map((h) => (
-          <div key={h.label} className="ll-card p-4">
-            <div className="flex items-center gap-2 mb-1.5" style={{ color: "#2D5282" }}>
-              <h.icon size={15} />
-              <span className="text-[11px] font-semibold uppercase tracking-wide" style={{ color: "#94A3B8" }}>{h.label}</span>
-            </div>
-            <p className="text-sm font-bold text-navy m-0">{h.value}</p>
-          </div>
-        ))}
-      </div>
 
       {/* Top risks */}
       {summary.topRisks.length > 0 && (
