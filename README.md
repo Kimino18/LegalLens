@@ -67,7 +67,7 @@ The tool is designed for IP law documents, including:
 
 ↓
 
-3. Split Document into Text Chunks
+3. Split Text into Analysis Chunks
 
 ↓
 
