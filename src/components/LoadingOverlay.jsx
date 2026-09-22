@@ -4,12 +4,12 @@
 
 window.LoadingOverlay = function LoadingOverlay() {
   const { Scale } = window.LLIcons;
-  const messages = [
-    "Extracting document text...",
-    "Scanning for risk clauses...",
-    "Generating plain language summary...",
-    "Calculating risk score..."
-  ];
+const messages = [
+  "Extracting document text...",
+  "Identifying legal sections...",
+  "Preparing document for analysis...",
+  "Analyzing document structure..."
+];
   const [msgIndex, setMsgIndex] = React.useState(0);
 
   React.useEffect(() => {

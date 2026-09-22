@@ -88,12 +88,19 @@ window.ClauseCard = function ClauseCard({ clause }) {
             <p className="text-sm m-0 leading-relaxed" style={{ color: "#334155" }}>
               {clause.explanation}
             </p>
-            <p className="text-[12px] font-bold uppercase tracking-wide m-0 mt-3 mb-1" style={{ color: "#0F2342" }}>
-              What to do:
-            </p>
-            <p className="text-sm font-semibold m-0 leading-relaxed" style={{ color: "#0F172A" }}>
-              Section {clause.section}: {clause.sectionTitle}
-            </p>
+<p className="text-[12px] font-bold uppercase tracking-wide m-0 mt-3 mb-1" style={{ color: "#0F2342" }}>
+  Source Location:
+</p>
+<p className="text-sm font-semibold m-0 leading-relaxed" style={{ color: "#0F172A" }}>
+  {clause.pageStart && (
+    <>
+      PDF Page:{" "}
+      {clause.pageStart === clause.pageEnd
+        ? clause.pageStart
+        : `${clause.pageStart}-${clause.pageEnd}`}
+    </>
+  )}
+</p>
           </div>
         </div>
 

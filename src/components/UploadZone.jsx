@@ -54,11 +54,12 @@ window.UploadZone = function UploadZone({ onFileSelected, onTryDemo, error }) {
     Upload Requirements
   </p>
 
-  <ul className="space-y-1">
-    <li>✓ English intellectual property laws only</li>
-    <li>✓ Section-based legal structure required</li>
-    <li>✓ Full legal text (not summaries or commentary)</li>
-  </ul>
+<ul className="space-y-1">
+  <li>✓ English intellectual property laws only</li>
+  <li>✓ Section-based legal structure required</li>
+  <li>✓ Full legal text (not summaries or commentary)</li>
+  <li>✓ For better ranking accuracy, upload text without cover pages or table of contents</li>
+</ul>
 </div>
         <p className="text-xs mt-3 px-3 py-1 rounded-full" style={{ background: "#F1F5F9", color: "#64748B" }}>
           or click to browse files
