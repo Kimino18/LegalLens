@@ -1,6 +1,6 @@
 # LegalLens
 
-AI-assisted Intellectual Property (IP) Law Document Analysis Tool
+Intellectual Property (IP) Law Retrieval and Analysis Tool
 
 ## Overview
 
@@ -28,7 +28,7 @@ Users can upload intellectual property law documents and analyze the content dir
 
 ### 🔎 Query-Based Clause Retrieval
 
-Users can enter legal questions or keywords, such as:
+Users can select or enter predefined legal concepts, such as:
 
 - protection duration
 - enforcement
@@ -39,14 +39,12 @@ The system searches the uploaded document and ranks potentially relevant legal s
 
 ---
 
-### 📚 Section-Based Legal Text Analysis
+### 📚 Chunk-Based Legal Text Analysis
 
-Legal documents are analyzed according to their internal structure.
-
-The system identifies legal sections and ranks results based on query-related keyword distribution within each section.
+Legal documents are divided into smaller text segments.
+The system ranks segments based on query-related keyword coverage and relevance scores.
 
 ---
-
 ### ⚖️ Intellectual Property Law Focus
 
 The tool is designed for IP law documents, including:
@@ -69,11 +67,11 @@ The tool is designed for IP law documents, including:
 
 ↓
 
-3. Identify Legal Sections
+3. Split Document into Text Chunks
 
 ↓
 
-4. Enter User Query
+4. Select Legal Concept Query
 
 ↓
 
@@ -81,7 +79,7 @@ The tool is designed for IP law documents, including:
 
 ↓
 
-6. Rank Related Legal Provisions
+6. Rank Relevant Text Segments
 
 ↓
 
