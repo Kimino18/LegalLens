@@ -9,15 +9,16 @@ window.LandingScreen = function LandingScreen({ onFileSelected, onTryDemo, error
 
         {/* Hero */}
         <section id="hero-section" className="text-center mb-10">
-          <h1
-            className="font-display text-navy leading-tight"
-            style={{ fontSize: "clamp(30px, 5vw, 42px)", fontWeight: 700 }}
-          >
-            Understand Intellectual Property Laws<br className="hidden sm:block" /> with AI Assistance
-          </h1>
-          <p className="mt-4 text-base sm:text-lg" style={{ color: "#64748B" }}>
-            AI-assisted analysis for intellectual property laws. Upload legal documents and find relevant provisions.
-          </p>
+<h1 
+  className="font-display text-navy leading-tight"
+  style={{ fontSize: "clamp(30px, 5vw, 42px)", fontWeight: 700 }}
+>
+  Intellectual Property Law<br className="hidden sm:block" /> Retrieval and Analysis Tool
+</h1>
+
+<p className="mt-4 text-base sm:text-lg" style={{ color: "#64748B" }}>
+  Upload intellectual property law documents and retrieve relevant provisions through structured document analysis.
+</p>
 
           {/* Feature pills */}
           <ul className="flex flex-wrap items-center justify-center gap-2.5 mt-6 list-none p-0">

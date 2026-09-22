@@ -23,12 +23,6 @@ window.Header = function Header({ screen, onReset }) {
         <span className="font-display text-white" style={{ fontSize: "26px", fontWeight: 700, letterSpacing: "0.3px" }}>
           LegalLens
         </span>
-        <span
-          className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-          style={{ background: "#F59E0B", color: "#0F2342", letterSpacing: "0.5px" }}
-        >
-          AI
-        </span>
       </button>
 
       <div>
@@ -44,10 +38,10 @@ window.Header = function Header({ screen, onReset }) {
           </button>
         ) : (
           <span className="text-xs hidden sm:block" style={{ color: "#94A8C4" }}>
-  IP Document Analysis
-</span>
+            IP Law Retrieval & Analysis
+          </span>
         )}
       </div>
-    </header>
+</header>
   );
 };

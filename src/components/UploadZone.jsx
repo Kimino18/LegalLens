@@ -56,7 +56,7 @@ window.UploadZone = function UploadZone({ onFileSelected, onTryDemo, error }) {
 
 <ul className="space-y-1">
   <li>✓ English intellectual property laws only</li>
-  <li>✓ Section-based legal structure required</li>
+  <li>✓ Legal documents with clear legal structure are recommended</li>
   <li>✓ Full legal text (not summaries or commentary)</li>
   <li>✓ For better ranking accuracy, upload text without cover pages or table of contents</li>
 </ul>
