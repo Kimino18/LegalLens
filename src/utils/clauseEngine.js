@@ -336,27 +336,24 @@ window.LEGAL_CONCEPT_RULES = [
 
 {
   id: "duration",
-
   title: "Protection Duration",
 
-patterns: [
-  "\\d+\\s+years?",
-  "\\d+\\s+months?",
-  "term of patent",
-  "duration of patent",
-  "period of protection",
-  "expires",
-  "renewal"
-],
+  patterns: [
+    "\\d+\\s+years?",
+    "\\d+\\s+months?",
+    "term",
+    "duration",
+    "period of protection",
+    "expires",
+    "expiry",
+    "period"
+  ],
 
-support: [
-"patent",
-"protection",
-"period",
-"years",
-"grant",
-"expiry"
-],
+  support: [
+    "renewal",
+    "protection",
+    "grant"
+  ],
 
   negative: [
     "within",
@@ -365,7 +362,6 @@ support: [
     "application"
   ]
 },
-
 
 {
   id: "enforcement",
@@ -394,11 +390,11 @@ support: [
 }
 
 ];
-function splitIntoChunks(text, size = 500) {
+function splitIntoChunks(text, size = 500, overlap = 100) {
 
   const chunks = [];
 
-  for(let i = 0; i < text.length; i += size){
+  for(let i = 0; i < text.length; i += size - overlap){
 
     chunks.push(
       text.slice(i, i + size)
@@ -409,407 +405,395 @@ function splitIntoChunks(text, size = 500) {
   return chunks;
 
 }
+
+  function findChunkPages(chunkStart, chunkEnd, pages) {
+
+  let currentPosition = 0;
+
+  let startPage = null;
+  let endPage = null;
+
+
+  for (const page of pages) {
+
+    const pageStart = currentPosition;
+
+    const pageEnd =
+      currentPosition + page.text.length;
+
+
+    if (
+      chunkEnd >= pageStart &&
+      chunkStart <= pageEnd
+    ) {
+
+      if (startPage === null) {
+        startPage = page.page;
+      }
+
+      endPage = page.page;
+    }
+
+
+    currentPosition = pageEnd + 1;
+  }
+
+
+  return {
+    pageStart: startPage,
+    pageEnd: endPage
+  };
+
+}
+
 window.calculateChunkScore = function(chunk, concept){
 
   const text = chunk.toLowerCase();
-
 
   let hitCount = 0;
   let totalFrequency = 0;
   let weightedScore = 0;
 
+  // ── Keyword Weights ──────────────────────────────────────
+  const CHUNK_KEYWORD_WEIGHTS = {
 
-  const keywords = [
-    ...(concept.patterns || []),
-    ...(concept.support || [])
-  ];
+    protection_scope: {
+      "means": 3,
+      "defined as": 3,
+      "refers to": 3,
+      "consists of": 3,
+      "subject matter": 3,
+      "includes": 2,
 
+      "protected": 2,
+      "work": 1,
+      "invention": 1,
+      "mark": 1,
+      "design": 1,
+      "goods": 1,
+      "service": 1
+    },
 
-  for(const word of keywords){
+    protection_method: {
+      "exclusive right": 3,
+      "rights conferred": 3,
+      "right to": 3,
+      "license": 3,
 
-    const keyword = word.toLowerCase();
+      "grant": 2,
+      "registration": 2,
+      "ownership": 2,
+      "proprietor": 2,
 
+      "protect": 1,
+      "protection": 1,
+      "use": 1,
+      "right": 1,
+      "owner": 1
+    },
 
-if(text.includes(keyword)){
+    duration: {
+      "\\d+\\s+years?": 3,
+      "\\d+\\s+months?": 3,
+      "term": 3,
+      "duration": 3,
+      "period of protection": 3,
+      "expires": 3,
+      "expiry": 3,
 
-      hitCount++;
+      "period": 2,
 
-      if(
-        concept.id === "duration" &&
-        ["term","duration","years","months","expires"].includes(keyword)
-      ){
-        weightedScore += 3;
-      }else{
-        weightedScore += 1;
-      }
-      const matches = text.match(
-        new RegExp(keyword,"g")
-      );
+      "renewal": 2,
+      "protection": 1,
+      "grant": 1
+    },
 
-      if(matches){
-        totalFrequency += matches.length;
-      }
+    enforcement: {
+      "fine": 3,
+      "penalty": 3,
+      "punishable": 3,
+      "imprisonment": 3,
+      "criminal": 3,
+      "damages": 3,
+      "injunction": 3,
 
+      "remedy": 2,
+
+      "infringement": 2,
+      "offence": 2,
+      "liability": 2,
+      "violation": 2
+    }
+  };
+
+  const weights =
+    CHUNK_KEYWORD_WEIGHTS[concept.id] || {};
+
+  const keywords = Object.keys(weights);
+
+  // ── Keyword Matching ─────────────────────────────────────
+
+  for(const keyword of keywords){
+
+    let matches = [];
+
+    try {
+      matches = text.match(
+        new RegExp(keyword, "gi")
+      ) || [];
+    } catch(e) {
+      continue;
     }
 
+    if(matches.length > 0){
+
+      // 命中的关键词种类数
+      hitCount++;
+
+      // 关键词出现总次数
+      totalFrequency += matches.length;
+
+      // 每种关键词只贡献一次权重
+      weightedScore += weights[keyword];
+    }
   }
 
+  // ── Coverage ──────────────────────────────────────────────
 
-  // 关键词覆盖率
   const coverage =
-    hitCount / keywords.length;
+    hitCount / Math.max(keywords.length, 1);
+
+// ── Keyword Density ──────────────────────────────────────
+
+const density =
+  totalFrequency / Math.max(text.length, 1);
+
+// ── Normalize Weighted Score ─────────────────────────────
+
+// 理论最大权重
+const theoreticalMaxWeight =
+  keywords.reduce((sum, keyword) => {
+    return sum + weights[keyword];
+  }, 0);
+
+// 归一化到 0–1
+const normalizedWeightedScore =
+  weightedScore /
+  Math.max(theoreticalMaxWeight, 1);
 
 
-  // 关键词密度
-  const density =
-    totalFrequency / Math.max(text.length,1);
+// ── Final Score ──────────────────────────────────────────
 
+// Density 的归一化将在 detectClauses 中完成
+// 这里先返回原始数据
 
-const score =
-    coverage * 0.4 +
-    density * 0.2 +
-    weightedScore * 0.4;
-
-  return score;
-
+return {
+  coverage,
+  density,
+  weightedScore,
+  normalizedWeightedScore
 };
- window.detectClauses = function detectClauses(docText, question) {
+};
+window.detectClauses = function detectClauses(docText, question) {
 
+  // ── 1. Clean full document text ─────────────────────────────
   const text = String(docText || '')
     .replace(/\r\n/g, '\n')
-    .replace(/\r/g, '\n');
-
-
-  console.log("TEXT LENGTH:", text.length);
-console.log(
-  text.slice(0,3000)
-);
-
-const sectionPattern =
-/(?:^|\n)\s*(?:Section\s+|§\s*)?(\d+[A-Za-z]?)\s*[\.\-:]?\s+([^\n]{5,120})/gmi;
-const sections = [];
-
-let match;
-
-const matches = [];
-
-while ((match = sectionPattern.exec(text)) !== null) {
-matches.push({
- number: match[1],
- title: match[2].trim(),
- index: match.index
-});
-
-console.log(
-  "MATCH:",
-  match[1],
-  match[2]
-);
-}
-
-
-for (let i = 0; i < matches.length; i++) {
-
-  const current = matches[i];
-
-  const next = matches[i + 1];
-
-  const start = current.index;
-
-  const end = next ? next.index : text.length;
-
-
-  const sectionText = text
-    .slice(start, end)
+    .replace(/\r/g, '\n')
     .trim();
 
+  console.log("TEXT LENGTH:", text.length);
 
-  sections.push({
+  // ── 2. Select legal concepts ────────────────────────────────
+  let selectedConcepts = window.LEGAL_CONCEPT_RULES;
 
-    section: current.number,
+  if (question) {
+    const query = question.toLowerCase().trim();
 
-    title: current.title,
-
-    text: sectionText
-
-  });
-}
-
-
-console.log(
-  "Detected Sections:",
-  sections.slice(0, 10)
-);
-console.log(
-  "SECTION COUNT:",
-  sections.length
-);
-
-const results = [];
-let selectedConcepts = window.LEGAL_CONCEPT_RULES;
-
-
-// 如果用户输入关键词，则筛选对应概念
-// 如果用户输入关键词，则筛选对应概念
-if(question){
-
-  const query = question.toLowerCase();
-
-  selectedConcepts =
-    window.LEGAL_CONCEPT_RULES.filter(concept => {
-
-      return (
-        concept.id === query
-        ||
-        concept.title.toLowerCase().includes(query)
-      );
-
-    });
-
-}
-
-// 如果没有匹配，默认全部
-if(selectedConcepts.length===0){
-  return [];
-}
-for (const concept of selectedConcepts) {
-
-let candidates = [];
-
-  for (const section of sections) {
-
-
-
-  let score = 0;
-
-const lowerTitle =
-  section.title.toLowerCase();
-
-const lowerText =
-  section.text.toLowerCase();
-
-const content =
-  lowerTitle + " " + lowerText;
-
-
-// ===============================
-// Section scoring
-// ===============================
-
-
-// 1. 标题权重（最高）
-// 法律章节标题通常直接说明内容
-
-for (const pattern of concept.patterns || []) {
-
-  let regex;
-
-  try {
-
-    regex = new RegExp(pattern, "i");
-
-  } catch(e) {
-
-    continue;
-
+    selectedConcepts =
+      window.LEGAL_CONCEPT_RULES.filter(concept => {
+        return (
+          concept.id === query ||
+          concept.title.toLowerCase().includes(query)
+        );
+      });
   }
 
-
-  if(regex.test(lowerTitle)){
-
-    score += 8;
-
+  if (selectedConcepts.length === 0) {
+    return [];
   }
 
-}
+  const results = [];
 
+  // ── 3. Process each legal concept ───────────────────────────
+  for (const concept of selectedConcepts) {
 
+    // 3.1 Split FULL document into 500-character chunks
+    const chunks = splitIntoChunks(text, 500);
 
-// 2. 正文核心词
-
-for (const pattern of concept.patterns || []) {
-
-  let regex;
-
-  try {
-
-    regex = new RegExp(pattern, "i");
-
-  } catch(e){
-
-    continue;
-
-  }
-
-
-  if(regex.test(lowerText)){
-
-    score += 3;
-
-  }
-
-}
-
-
-
-// 3. 辅助词
-
-for (const word of concept.support || []) {
-
-  if(lowerText.includes(word.toLowerCase())){
-
-    score += 1;
-
-  }
-
-}
-
-
-
-// 4. 排除干扰
-
-for (const word of concept.negative || []) {
-
-  if(lowerText.includes(word.toLowerCase())){
-
-    score -= 4;
-
-  }
-
-}
-
-// 保存最高匹配章节
-if (score > 0) {
-
-    candidates.push({
-        section: section,
-        score: score
-    });
-
-}
-
-} // 关闭 for (const section of sections)
-candidates.sort((a,b)=>b.score-a.score);
-
-
-const topCandidates = candidates.slice(0,5);
-console.log(
-  "===== " + concept.title + " ====="
-);
-
-topCandidates.forEach(item => {
-  console.log(
-    "Section:",
-    item.section.section,
-    "| Title:",
-    item.section.title,
-    "| Score:",
-    item.score
-  );
-});
-
-if (topCandidates.length > 0) {
-
-  let allChunks = [];
-
-  topCandidates.forEach(candidate=>{
-
-    const chunks = splitIntoChunks(
-      candidate.section.text
+    console.log(
+      "===== " + concept.title + " ====="
     );
 
-    chunks.forEach(chunk=>{
+    console.log(
+      "TOTAL CHUNKS:",
+      chunks.length
+    );
 
-      allChunks.push({
+    // ── 4. Calculate score for every chunk ────────────────────
+const scoredChunks = chunks.map((chunk, index) => {
+
+
+      const overlap = 100;
+
+const chunkStart =
+  index * (500 - overlap);
+
+      const chunkEnd =
+        chunkStart + chunk.length;
+
+
+      const pages =
+        findChunkPages(
+          chunkStart,
+          chunkEnd,
+          window.currentPDFPages || []
+        );
+
+
+      return {
+
         text: chunk,
-        section: candidate.section.section,
-        title: candidate.section.title
+
+        chunkIndex: index,
+
+
+        ...pages,
+
+
+        ...window.calculateChunkScore(
+          chunk,
+          concept
+        )
+
+      };
+
+});
+    // ── 5. Normalize Density ──────────────────────────────────
+    const densities =
+      scoredChunks.map(item => item.density);
+
+    const minDensity =
+      Math.min(...densities);
+
+    const maxDensity =
+      Math.max(...densities);
+
+    scoredChunks.forEach(item => {
+
+      if (maxDensity === minDensity) {
+
+        item.normalizedDensity = 0;
+
+      } else {
+
+        item.normalizedDensity =
+          (item.density - minDensity) /
+          (maxDensity - minDensity);
+
+      }
+
+    });
+
+    // ── 6. Calculate Final Score ──────────────────────────────
+    scoredChunks.forEach(item => {
+
+      item.score =
+        item.coverage * 0.4 +
+        item.normalizedDensity * 0.2 +
+        item.normalizedWeightedScore * 0.4;
+
+    });
+
+    // ── 7. Sort by relevance ──────────────────────────────────
+    scoredChunks.sort(
+      (a, b) => b.score - a.score
+    );
+
+    // ── 8. Take TOP 10 ────────────────────────────────────────
+    const bestChunks =
+      scoredChunks
+        .filter(chunk => chunk.score > 0)
+        .slice(0, 10);
+
+    console.log(
+      "TOP 10 CHUNKS:",
+      bestChunks
+    );
+
+    // ── 9. Convert chunks into result objects ────────────────
+    bestChunks.forEach(bestChunk => {
+
+      results.push({
+
+        ruleId: concept.id,
+
+        name: concept.title,
+
+        severity: "info",
+
+        keyword:
+          concept.patterns.find(keyword => {
+
+            try {
+              return bestChunk.text
+                .toLowerCase()
+                .match(
+                  new RegExp(keyword, "i")
+                );
+            } catch (e) {
+              return false;
+            }
+
+          }) || "",
+
+        relevanceScore:
+          bestChunk.score.toFixed(3),
+
+        snippetText:
+          bestChunk.text,
+
+        explanation:
+          "Relevant content ranked by keyword relevance.",
+
+        recommendation: "",
+
+        chunkIndex:
+          bestChunk.chunkIndex,
+
+          pageStart:
+ bestChunk.pageStart,
+
+pageEnd:
+ bestChunk.pageEnd
+
       });
 
     });
 
-  });
+  }
 
-
-  const rankedChunks = allChunks.map(item=>{
-
-    return {
-      ...item,
-      score:
-      window.calculateChunkScore(
-        item.text,
-        concept
-      )
-    };
-
-  });
-
-
-  rankedChunks.sort(
-    (a,b)=>b.score-a.score
+  console.log(
+    "FINAL RESULTS:",
+    results.length
   );
 
+  console.log(
+    "RESULT OBJECTS:",
+    results
+  );
 
-const bestChunks = rankedChunks
-  .filter(c => c.score > 0)
-  .slice(0,5);
-
-
-bestChunks.forEach(bestChunk => {
-
-  results.push({
-
-      ruleId: concept.id,
-
-      name: concept.title,
-
-      severity:"info",
-
-      keyword:
-        concept.patterns.find(k =>
-          bestChunk.text
-          .toLowerCase()
-          .includes(k.toLowerCase())
-        ) || "",
-
-      relevanceScore:
-        bestChunk.score.toFixed(3),
-      
-        snippetText:
-        bestChunk.text,
-
-
-      explanation:
-        "Relevant legal provision found in section "
-        + bestChunk.section,
-
-
-      recommendation:"",
-
-
-      section:
-        bestChunk.section,
-
-
-      sectionTitle:
-        bestChunk.title
-
-  });
-
-});
-
-}  // ★新增：关闭 topCandidates if
-
-
-}  // ★新增：关闭 concept for
-
-
-
-console.log("FINAL SECTIONS:", sections.length);
-console.log("FINAL RESULTS:", results.length);
-console.log("RESULT OBJECTS:", results);
-
-return results;
+  return results;
 
 };
 

@@ -10,14 +10,51 @@ if (window.pdfjsLib) {
 
 window.parsePDF = async function parsePDF(file) {
   const arrayBuffer = await file.arrayBuffer();
-  const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+  const pdf = await window.pdfjsLib.getDocument({
+    data: arrayBuffer
+  }).promise;
+
+
   const pages = [];
+  const pageTexts = [];
+
+
   for (let i = 1; i <= pdf.numPages; i++) {
+
     const page = await pdf.getPage(i);
+
     const content = await page.getTextContent();
-    const pageText = content.items.map(item => item.str).join(" ");
+
+    const pageText =
+      content.items
+        .map(item => item.str)
+        .join(" ");
+
+
+    // 保留页码信息
+    pageTexts.push({
+      page: i,
+      text: pageText
+    });
+
+
+    // 保持原来的字符串流程
     pages.push(pageText);
   }
+
+
+  // 临时保存页码数据
+  window.currentPDFPages = pageTexts;
+
+
+  console.log(
+    "PDF PAGE DATA:",
+    window.currentPDFPages
+  );
+
+
+  // 保持原项目正常运行
   return pages.join("\n");
 };
 
