@@ -6,7 +6,7 @@ Intellectual Property (IP) Law Retrieval and Analysis Tool
 
 Try LegalLens directly in your browser:
 
-[Demo Link]（https://kimino18.github.io/LegalLens/）
+[Open LegalLens Demo](https://kimino18.github.io/LegalLens/)
 
 No installation required. Click "Try with Demo Intellectual Property Law" to explore the analysis workflow.
 Demo uses a simplified sample document for demonstration purposes.
