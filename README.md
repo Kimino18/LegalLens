@@ -2,6 +2,11 @@
 
 Intellectual Property (IP) Law Retrieval and Analysis Tool
 
+## Demo Screenshot
+
+![LegalLens Interface]<img width="638" height="279" alt="image" src="https://github.com/user-attachments/assets/bbaf854c-c8fd-4dc5-94e5-05be6fb57816" />
+
+
 ## Live Demo
 
 Try LegalLens directly in your browser:
