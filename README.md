@@ -1,6 +1,6 @@
 # LegalLens
 
-Intellectual Property (IP) Law Retrieval and Analysis Tool
+Intellectual Property (IP) Law Retrieval and Relevance Analysis Tool
 
 ## Demo Screenshot
 
@@ -19,7 +19,7 @@ Demo uses a simplified sample document for demonstration purposes.
 
 ## Overview
 
-LegalLens is an AI-assisted legal document analysis tool designed for Intellectual Property (IP) law documents.
+LegalLens is an browser-based legal document retrieval and relevance analysis tool designed for Intellectual Property (IP) law documents.
 
 The project helps users quickly locate relevant legal provisions from long and complex legal texts by combining document structure analysis and query-based relevance ranking.
 
@@ -56,8 +56,14 @@ The system searches the uploaded document and ranks potentially relevant legal s
 
 ### 📚 Chunk-Based Legal Text Analysis
 
-Legal documents are divided into smaller text segments.
-The system ranks segments based on query-related keyword coverage and relevance scores.
+Legal documents are divided into 500-character text segments with overlapping context.
+
+Each segment is evaluated using:
+- keyword coverage
+- keyword occurrence density
+- weighted keyword relevance
+
+The system then combines these signals into a relevance score and ranks the most relevant segments.
 
 ---
 ### ⚖️ Intellectual Property Law Focus
@@ -82,7 +88,7 @@ The tool is designed for IP law documents, including:
 
 ↓
 
-3. Split Text into Analysis Chunks
+3. Split Text into 500-Character Chunks
 
 ↓
 
@@ -142,7 +148,8 @@ Document Processing:
 - PDF text extraction
 - DOCX/TXT parsing
 - Rule-based section detection
-- Keyword coverage-based relevance ranking
+- Chunk-based relevance ranking
+- Keyword coverage and weighted relevance scoring
 
 Deployment:
 
@@ -176,11 +183,11 @@ LegalLens
 │   │   ├── Icons.jsx
 │   │   ├── LandingScreen.jsx
 │   │   ├── LoadingOverlay.jsx
-│   │   ├── RiskDonut.jsx
-│   │   ├── RiskGauge.jsx
 │   │   ├── Sidebar.jsx
-│   │   ├── SummaryPanel.jsx
-│   │   └── UploadZone.jsx
+│   │   ├── UploadZone.jsx
+│   │   └──SummaryPanel.jsx
+│   │   
+│   │   
 │   │
 │   ├── data
 │   │   └── sampleDoc.js
@@ -203,7 +210,8 @@ LegalLens
 - The current version is optimized for English intellectual property law documents.
 - Documents with unclear formatting, scanned images, or inconsistent structures may reduce extraction accuracy.
 - Users should verify retrieved provisions against the original legal text.
-
+- Relevance scores are heuristic indicators rather than measures of legal importance or legal validity.
+  
 ---
 
 ## Future Improvements
