@@ -185,7 +185,7 @@ LegalLens
 │   │   ├── LoadingOverlay.jsx
 │   │   ├── Sidebar.jsx
 │   │   ├── UploadZone.jsx
-│   │   └──SummaryPanel.jsx
+│   │   └── SummaryPanel.jsx
 │   │   
 │   │   
 │   │
