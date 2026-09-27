@@ -19,7 +19,7 @@ Demo uses a simplified sample document for demonstration purposes.
 
 ## Overview
 
-LegalLens is an browser-based legal document retrieval and relevance analysis tool designed for Intellectual Property (IP) law documents.
+LegalLens is a browser-based legal document retrieval and relevance analysis tool designed for Intellectual Property (IP) law documents.
 
 The project helps users quickly locate relevant legal provisions from long and complex legal texts by combining document structure analysis and query-based relevance ranking.
 
