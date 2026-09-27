@@ -8,8 +8,6 @@ function App() {
   const [docText, setDocText] = React.useState("");
   const [clauses, setClauses] = React.useState([]);
   const [summary, setSummary] = React.useState(null);
-  const [score, setScore] = React.useState(0);
-  const [riskInfo, setRiskInfo] = React.useState(null);
   const [activeTab, setActiveTab] = React.useState("clauses");
   const [summaryLang, setSummaryLang] = React.useState("english");
   const [error, setError] = React.useState("");
@@ -22,10 +20,8 @@ function App() {
     const startedAt = Date.now();
 
     // Run detection while the loading animation plays
-    const detected = window.detectClauses(text, searchQuery);
-    const sum = window.generateSummary(text, detected);
-    const risk = window.calculateRiskScore(detected);
-
+const detected = window.detectClauses(text, searchQuery);
+const sum = window.generateSummary(text, detected);
     const elapsed = Date.now() - startedAt;
     const wait = Math.max(0, 2500 - elapsed);
     setTimeout(() => {
@@ -33,8 +29,6 @@ function App() {
       setDocName(name);
       setClauses(detected);
       setSummary(sum);
-      setScore(risk.score);
-      setRiskInfo(risk);
       setActiveTab("clauses");
       setSummaryLang("english");
       setScreen("analysis");
@@ -49,17 +43,14 @@ function App() {
       const text = await window.parseFile(file);
       // parseFile may finish fast; runAnalysis manages min loading time
       const startedAt = Date.now();
-      const detected = window.detectClauses(text, query);
-      const sum = window.generateSummary(text, detected);
-      const risk = window.calculateRiskScore(detected);
+const detected = window.detectClauses(text, query);
+const sum = window.generateSummary(text, detected);
       const wait = Math.max(0, 2500 - (Date.now() - startedAt));
       setTimeout(() => {
         setDocText(text);
         setDocName(file.name);
         setClauses(detected);
         setSummary(sum);
-        setScore(risk.score);
-        setRiskInfo(risk);
         setActiveTab("clauses");
         setSummaryLang("english");
         setScreen("analysis");
@@ -104,14 +95,12 @@ const handleTryDemo = () => {
 
         {screen === "loading" && <window.LoadingOverlay />}
 
-        {screen === "analysis" && riskInfo && (
+        {screen === "analysis" && (
           <window.AnalysisScreen
             docName={docName}
             docText={docText}
             clauses={clauses}
             summary={summary}
-            score={score}
-            riskInfo={riskInfo}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             summaryLang={summaryLang}
