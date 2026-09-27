@@ -2,7 +2,7 @@
 // LegalLens — Analysis Sidebar
 // ═══════════════════════════════════════════
 
-window.Sidebar = function Sidebar({ docName, score, riskInfo, summary, onReanalyze }) {
+window.Sidebar = function Sidebar({ docName, summary, onReanalyze }) {
   const { FileText, RefreshCw, Users, IndianRupee, MapPin } = window.LLIcons;
   const analyzedDate = new Date().toLocaleDateString("en-IN", {
     day: "numeric", month: "long", year: "numeric"

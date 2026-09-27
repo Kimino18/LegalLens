@@ -2,11 +2,10 @@
 // LegalLens — Analysis Screen (2-col layout + tabs)
 // ═══════════════════════════════════════════
 
-window.AnalysisScreen = function AnalysisScreen({
-  docName, docText, clauses, summary, score, riskInfo,
+  window.AnalysisScreen = function AnalysisScreen({
+  docName, docText, clauses, summary,
   activeTab, setActiveTab, summaryLang, setSummaryLang, onReanalyze
 }) {
-  
   
   const [searchResults, setSearchResults] = React.useState([]);
 
@@ -26,13 +25,11 @@ window.AnalysisScreen = function AnalysisScreen({
         style={{ gridTemplateColumns: "minmax(280px, 30%) 1fr" }}
       >
         {/* Sidebar */}
-        <window.Sidebar
-          docName={docName}
-          score={score}
-          riskInfo={riskInfo}
-          summary={summary}
-          onReanalyze={onReanalyze}
-        />
+<window.Sidebar
+  docName={docName}
+  summary={summary}
+  onReanalyze={onReanalyze}
+/>
 
         {/* Main content */}
         <section id="analysis-main" className="min-w-0">
@@ -108,9 +105,10 @@ window.AnalysisScreen = function AnalysisScreen({
 Search
 </button>
 </div>
-    <window.ClauseList 
+<window.ClauseList 
   key={searchResults.length + JSON.stringify(searchResults)}
   clauses={searchResults}
+  searched={question.trim().length > 0}
 />
   </>
 )}
