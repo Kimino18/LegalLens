@@ -797,21 +797,3 @@ pageEnd:
 
 };
 
-// ── Risk Scoring ────────────────────────────────────────────
-// score = (high × 28) + (medium × 12) + (info × 3), clamped to 100
-window.calculateRiskScore = function calculateRiskScore(clauses) {
-  const high = clauses.filter(c => c.severity === "high").length;
-  const medium = clauses.filter(c => c.severity === "medium").length;
-  const info = clauses.filter(c => c.severity === "info").length;
-  const score = Math.min(100, high * 28 + medium * 12 + info * 3);
-
-  let riskLevel, label, color, labelBg;
-  if (score <= 30) {
-    riskLevel = "low"; label = "LOW RISK"; color = "#059669"; labelBg = "#ECFDF5";
-  } else if (score <= 65) {
-    riskLevel = "medium"; label = "MEDIUM RISK"; color = "#D97706"; labelBg = "#FFFBEB";
-  } else {
-    riskLevel = "high"; label = "HIGH RISK"; color = "#DC2626"; labelBg = "#FEF2F2";
-  }
-  return { score, riskLevel, label, color, labelBg, counts: { high, medium, info } };
-};
